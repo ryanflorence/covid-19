@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useMemo } from "react"
-import serializeForm from "form-serialize"
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import serializeForm from "form-serialize";
 import {
   BrowserRouter,
   Route,
@@ -7,41 +7,52 @@ import {
   useNavigate,
   useLocation,
   Link
-} from "react-router-dom"
+} from "react-router-dom";
 
 function App() {
-  let [persons, setPersons] = useState(4)
-  let doFocusRef = useRef(false)
-  let focusRef = useRef()
-  let formRef = useRef()
-  let navigate = useNavigate()
+  let [persons, setPersons] = useState(2);
+  let doFocusRef = useRef(false);
+  let focusRef = useRef();
+  let formRef = useRef();
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (doFocusRef.current === false) {
-      doFocusRef.current = true
+      doFocusRef.current = true;
     } else {
-      focusRef.current.focus()
+      focusRef.current.focus();
     }
-  }, [persons])
+  }, [persons]);
 
   function handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
     let values = serializeForm(event.target, { hash: true }).ages.filter(
       v => v !== "UNSET"
-    )
-    navigate(`infected/?ages=${values.map(v => v)}`)
+    );
+    navigate(`infected/?ages=${values.map(v => v)}`);
   }
 
   return (
     <div id="App">
       <div className="prelude">
-        <h1>Social Distancing</h1>
+        <h1>
+          Social Distancing <span aria-hidden="true">🔚 🔜</span>
+        </h1>
         <p>
           Many people close to me are skeptical that covid-19 is a big deal.
-          I've made this illustration to show how your action will affect you,
-          your household, and the community around you. All equations are based
-          on the latest infection growth and fatality rates of the virus as of
-          March 14, 2020.
+        </p>
+        <p>
+          I've made this illustration to show how{" "}
+          <b>
+            your action will affect you, your household, and the community
+            around you
+          </b>
+          !
+        </p>
+        <p>
+          {" "}
+          All equations are based on the latest infection growth and fatality
+          rates of the virus as of March 14, 2020.
         </p>
       </div>
       <hr />
@@ -60,10 +71,11 @@ function App() {
         <button type="button" onClick={() => setPersons(persons + 1)}>
           Add another
         </button>
+        <hr />
         <button type="submit">Next</button>
       </form>
     </div>
-  )
+  );
 }
 
 function AgeSelect(props) {
@@ -74,17 +86,17 @@ function AgeSelect(props) {
         <option key={index}>{index}</option>
       ))}
     </select>
-  )
+  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 function Infection() {
-  let location = useLocation()
-  let navigate = useNavigate()
-  let ages = parseAges(location.search)
+  let location = useLocation();
+  let navigate = useNavigate();
+  let ages = parseAges(location.search);
   if (ages === null) {
-    setTimeout(() => navigate("/"), [])
-    return null
+    setTimeout(() => navigate("/"), []);
+    return null;
   }
 
   return (
@@ -98,13 +110,13 @@ function Infection() {
       </div>
       <div id="DiceRolls" className="center">
         {ages.map((age, index) => (
-          <DiceRoll key={index} age={age} />
+          <DiceRoll key={index} age={age} isMyself={index === 0} />
         ))}
       </div>
       <p>
-        As expected, you probably didn't die. But it's not about you. Let's look
-        at how many people your family is going to kill by not practicing social
-        distancing.
+        As expected, you probably didn't die. But <b>it's not about you</b>.
+        Let's look at how many people your family is going to kill by not
+        practicing social distancing.
       </p>
       <Link className="big-link" to={`/killers${location.search}`}>
         Your Kill Count ▸
@@ -117,10 +129,12 @@ function Infection() {
         <i>(lots of your friends and family are!)</i> you're going to have to
         click the button a lot before you die.
       </p>
-      <p>So this is just like the flu, right?</p>
       <p>
-        Not quite. People have been quoting how many deaths per year there are
-        for the flu (
+        <b>So this is just like the flu, right?</b>
+      </p>
+      <p>
+        <b>Not quite</b>. People have been quoting how many deaths per year
+        there are for the flu (
         <a href="https://www.cdc.gov/flu/about/burden/index.html#:~:text=">
           12,000 to 61,000
         </a>
@@ -141,7 +155,7 @@ function Infection() {
       <p>
         The flu has a general fatality rate of 0.1%
         <br />
-        COVID-19's fatality rate right now is 3.4%
+        <b>COVID-19's fatality rate right now is 3.4%</b>
       </p>
       <p>
         <b>
@@ -165,17 +179,39 @@ function Infection() {
         <b>the flu doesn't completely overwhelm the health care system</b> in
         Italy each year, but{" "}
         <a href="https://www.theatlantic.com/ideas/archive/2020/03/who-gets-hospital-bed/607807/">
-          that's exactly what coronavirus has done
+          that's exactly what coronavirus has done.
         </a>
-        .
+      </p>
+      <p>
+        Some hospitals in Italy are running out of beds and ventilators and
+        doctors need to decide who to treat 😞
       </p>
       <p>But still, only ~50 deaths in the US right? What's the big deal?</p>
       <p>
         The big deal is mixing a fatality rate that's 34x of the flu with
         exponential growth.
       </p>
+      <h2>What you can do</h2>
+      <ul>
+        <li>
+          Stay home and avoid crowded spaces (public transporation, bars, venues
+          etc)
+        </li>
+        <li>Supermarket and pharmacies won't close so don't panic!</li>
+        <li>
+          Avoid to overcrowd supermarkets and keep 3.5-6 feet distance from
+          other customers
+        </li>
+        <li>Don't shake hands</li>
+        <li>Cover your mouth and nose when coughing/sneezing</li>
+        <li>Use cashless payment methods</li>
+        <li>Don't travel</li>
+        <li>Wash your phone and then your hands properly</li>
+        <li>Offer to help seniors by doing groceries for them! Avoid contacts though.</li>
+        <li>Better, get groceries delivered home if you can</li>
+      </ul>
     </div>
-  )
+  );
 }
 
 // https://www.worldometers.info/coronavirus/coronavirus-age-sex-demographics/
@@ -189,41 +225,41 @@ let rates = [
   [69, 0.036],
   [79, 0.08],
   [79, 0.148]
-]
+];
 
-function DiceRoll({ age }) {
-  let [state, setState] = useState("alive") // alive, dead, rolling
-  let [rolls, setRolls] = useState(0)
+function DiceRoll({ age, isMyself }) {
+  let [state, setState] = useState("alive"); // alive, dead, rolling
+  let [rolls, setRolls] = useState(0);
 
   let rate = useMemo(() => {
-    let rate
+    let rate;
     for (let [maxAge, ageRate] of rates) {
-      rate = ageRate
-      if (age < maxAge) break
+      rate = ageRate;
+      if (age < maxAge) break;
     }
-    return rate
-  }, [age])
+    return rate;
+  }, [age]);
 
   function rollDice() {
-    setRolls(rolls + 1)
-    setState("rolling")
+    setRolls(rolls + 1);
+    setState("rolling");
   }
 
   useEffect(() => {
     if (state === "rolling") {
       let timer = setTimeout(() => {
-        let rando = Math.random()
+        let rando = Math.random();
         if (rando <= rate) {
-          setState("dead")
+          setState("dead");
         } else {
-          setState("alive")
+          setState("alive");
         }
-      }, 200)
+      }, 200);
       return () => {
-        clearTimeout(timer)
-      }
+        clearTimeout(timer);
+      };
     }
-  }, [state, rate])
+  }, [state, rate]);
 
   return (
     <div className="DiceRoll" data-state={state}>
@@ -238,7 +274,7 @@ function DiceRoll({ age }) {
             : null}
         </span>{" "}
         <span>
-          <b>{age} year old</b>
+          <b>{isMyself ? "you" : `${age} year old`}</b>
           <br />
           Fatality Rate: {(rate * 100).toFixed(1)}%
         </span>
@@ -250,21 +286,21 @@ function DiceRoll({ age }) {
         <span>Rolls: {rolls}</span>
       </div>
     </div>
-  )
+  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 function KillCount({ ages }) {
-  let [infected, setInfected] = useState(1)
-  let [weeks, setWeeks] = useState(1)
-  let rate = 0.034
-  let Ro = 2
+  let [infected, setInfected] = useState(1);
+  let [weeks, setWeeks] = useState(1);
+  let rate = 0.034;
+  let Ro = 2;
 
-  let killed = Math.round(infected * rate)
+  let killed = Math.round(infected * rate);
 
   function nextWeek() {
-    setInfected(infected * Ro)
-    setWeeks(weeks + 1)
+    setInfected(infected * Ro);
+    setWeeks(weeks + 1);
   }
 
   return (
@@ -280,16 +316,16 @@ function KillCount({ ages }) {
       <p>People You Killed: {killed}</p>
       <button onClick={nextWeek}>Live another week</button>
     </div>
-  )
+  );
 }
 
 function Killers() {
-  let location = useLocation()
-  let navigate = useNavigate()
-  let ages = parseAges(location.search)
+  let location = useLocation();
+  let navigate = useNavigate();
+  let ages = parseAges(location.search);
   if (ages === null) {
-    setTimeout(() => navigate("/"), [])
-    return null
+    setTimeout(() => navigate("/"), []);
+    return null;
   }
 
   return (
@@ -357,26 +393,26 @@ function Killers() {
         anything less than 1 will just die off.
       </p>
     </div>
-  )
+  );
 }
 
 function parseAges(search) {
-  let params = new URLSearchParams(search)
+  let params = new URLSearchParams(search);
   try {
     return params
       .get("ages")
       .split(",")
-      .map(str => Number(str))
+      .map(str => Number(str));
   } catch (e) {
-    return null
+    return null;
   }
 }
 
 function AppRoot() {
-  let location = useLocation()
+  let location = useLocation();
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location])
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <Routes>
@@ -384,11 +420,11 @@ function AppRoot() {
       <Route path="/infected" element={<Infection />} />
       <Route path="/killers" element={<Killers />} />
     </Routes>
-  )
+  );
 }
 
 export default () => (
   <BrowserRouter>
     <AppRoot />
   </BrowserRouter>
-)
+);
