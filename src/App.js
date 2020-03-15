@@ -191,7 +191,7 @@ function Infection() {
         The big deal is mixing a fatality rate that's 34x of the flu with
         exponential growth.
       </p>
-      <h2>What can you do</h2>
+      <h2>What you can do</h2>
       <ul>
         <li>
           Stay home and avoid crowded spaces (public transporation, bars, venues
@@ -207,6 +207,8 @@ function Infection() {
         <li>Use cashless payment methods</li>
         <li>Don't travel</li>
         <li>Wash your phone and then your hands properly</li>
+        <li>Offer to help seniors by doing groceries for them! Avoid contacts though.</li>
+        <li>Better, get groceries delivered home if you can</li>
       </ul>
     </div>
   );
