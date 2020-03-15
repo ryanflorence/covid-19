@@ -113,7 +113,7 @@ function Infection() {
       <hr />
       <h2>More information</h2>
       <p>
-        Unless you're over 60, or are immuno-comprimised{" "}
+        Unless you're over 60, or are immuno-compromised{" "}
         <i>(lots of your friends and family are!)</i> you're going to have to
         click the button a lot before you die.
       </p>
