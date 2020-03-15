@@ -14,7 +14,7 @@ code {
 
 #App {
   max-width: 400px;
-  margin: auto;
+  margin: 3rem auto;
 }
 
 #HouseHoldForm label {
@@ -35,10 +35,23 @@ code {
   font-size: 1.5rem;
 }
 
+#HouseHoldForm hr {
+  margin: 2rem 0
+}
+
 #HouseHoldForm button {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   width: 100%;
   margin-top: 1rem;
+  padding: 0.5em;
+  border-radius: 3px;
+  background-color: #111;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+#HouseHoldForm hr + button {
+  margin-top: 0
 }
 
 .prelude {
